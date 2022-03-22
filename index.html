@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flipping cards</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="flashcards-app">
+<!--    Adding a new card-->
+    <div>
+<!--        ADDING CARD QUESTION AND ANSWER-->
+        <input v-model="form.question" required placeholder="Please Enter a Question">
+        <input v-model="form.answer" required placeholder="Answer">
+<!--        RADIO BUTTONS FOR THE CATEGORY-->
+        <div>
+            <input type="radio" name="cate" value="history" v-model="form.category">History
+            <input type="radio" name="cate" value="math" v-model="form.category">Science
+            <input type="radio" name="cate" value="science" v-model="form.category">Math
+        </div>
+<!--        submit button-->
+        <button @click="submit">Submit</button>
+
+    </div>
+<!--    display each card layout-->
+    <div class="card"  v-for="(card, i) in cards" >
+<!--        top color category-->
+        <div class="top" v-bind:class="card.category"></div>
+<!--        side 1-->
+        <div v-bind:id="'q'+i" class="side1" @click="flip(i)">
+            <h1>{{card.question}}</h1>
+        </div>
+<!--        side 2-->
+        <div v-bind:id="'a'+i" v-if="!card.flipped" class="side2 hide" @click="unflip(i)">
+            <h1>{{card.answer}}</h1>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
